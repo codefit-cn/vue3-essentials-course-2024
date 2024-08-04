@@ -1,17 +1,33 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 
 export default defineComponent({
   name: 'App',
   setup() {
+    // 使用 ref() 的部分
     const count = ref(0)
 
     function increase() {
       count.value++
     }
+
+    // 新增：使用的 reactive() 部分
+    const state = reactive({
+      reactiveCount: 0,
+      message: "Hello, Vue.js 3.x 必修课｜2024 By CodeFit"
+    })
+
+    function increaseReactive() {
+      state.reactiveCount++
+    }
+
     return {
+      // ref() 相关
       count,
-      increase
+      increase,
+      // reactive() 相关
+      state,
+      increaseReactive
     }
   }
 })
@@ -19,12 +35,18 @@ export default defineComponent({
 
 <template>
   <main>
-    <h1>{{ count }}</h1>
+    <h1>使用 ref() </h1>
+    <h2>{{ count }}</h2>
     <button @click="increase">Increase</button>
+
+    <h1>使用 reactive() </h1>
+    <h2>{{ state.reactiveCount }}</h2>
+    <button @click="increaseReactive">increaseReactive</button>
+    <p>{{ state.message }}</p>
   </main>
 </template>
 
-<style scoped>
+<!-- <style scoped>
 main {
   text-align: center;
   padding: 20px;
@@ -40,4 +62,4 @@ button {
   padding: 10px 20px;
   cursor: pointer;
 }
-</style>
+</style> -->
