@@ -1,22 +1,29 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
 
+// 为 reactive 对象定义一个接口
+interface State {
+  reactiveCount: number;
+  message: string;
+}
+
 export default defineComponent({
   name: 'App',
   setup() {
-    // 使用 ref() 的部分
-    const count = ref(0)
-
+    // 使用 ref() 的部分，添加类型注解
+    const count = ref<string | number>(0)
     function increase() {
-      count.value++
+      // 使用类型守卫
+      if (typeof count.value === 'number') {
+        count.value++
+      }
     }
 
-    // 新增：使用的 reactive() 部分
-    const state = reactive({
+    // 使用 reactive() 的部分，添加类型注解
+    const state = reactive<State>({
       reactiveCount: 0,
       message: "Hello, Vue.js 3.x 必修课｜2024 By CodeFit"
     })
-
     function increaseReactive() {
       state.reactiveCount++
     }
